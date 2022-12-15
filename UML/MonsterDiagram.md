@@ -36,10 +36,10 @@ classDiagram
     <<Interface>> Hero
     Creature <|-- Hero
 
-    class MonsterImpl {
+    class MonsterBuilder {
 
     }
-    Monster <|.. MonsterImpl
+    Monster <|.. MonsterBuilder
 
     class HeroImpl {
 
