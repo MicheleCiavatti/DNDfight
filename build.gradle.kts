@@ -1,7 +1,7 @@
 plugins {
     java
     application
-    id("org.danilopianini.gradle-java-qa") version "0.40.0"
+    id 'base'
 }
 
 tasks.javadoc {
@@ -20,6 +20,7 @@ dependencies {
     // Use JUnit Jupiter Engine for testing.
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.1")
 }
+
 
 val mainClass: String by project
 
