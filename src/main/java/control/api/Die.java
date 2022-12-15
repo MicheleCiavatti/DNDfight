@@ -6,16 +6,16 @@ public interface Die {
     /**Returns the result of a roll of the specified die
      * @return the result of the roll
      */
-    int roll();
+    public int roll();
 
     /**Returns the result of a roll of the specified die made with advantage
      * @return the result of the roll with advantage
      */
-    int rollAdvantage();
+    public int rollAdvantage();
 
     /**Returns the result of a roll of the specified die made with disadvantage
      * @return the result of the roll with disadvantage
      */
-    int rollDisadvantage();
+    public int rollDisadvantage();
 }
 
