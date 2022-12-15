@@ -50,5 +50,5 @@ classDiagram
 
     }
     FactoryCreature <|.. FactoryCreatureImpl
-    FactoryCreatureImpl ..> MonsterImpl
+    FactoryCreatureImpl ..> MonsterBuilder
     FactoryCreatureImpl ..> HeroImpl
