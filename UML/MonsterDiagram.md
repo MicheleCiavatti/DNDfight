@@ -36,10 +36,11 @@ classDiagram
     <<Interface>> Hero
     Creature <|-- Hero
 
-    class MonsterBuilder {
+    class MonsterImpl {
 
     }
-    Monster <|.. MonsterBuilder
+    <<Nested>> MonsterImpl
+    Monster <|.. MonsterImpl
 
     class HeroImpl {
 
@@ -52,3 +53,14 @@ classDiagram
     FactoryCreature <|.. FactoryCreatureImpl
     FactoryCreatureImpl ..> MonsterBuilder
     FactoryCreatureImpl ..> HeroImpl
+
+    class MonsterBuilder {
+
+    }
+    <<Interface>> MonsterBuilder
+
+    class MonsterBuilderImpl {
+
+    }
+    MonsterBuilder <|-- MonsterBuilderImpl
+    MonsterBuilderImpl <|.. MonsterImpl
