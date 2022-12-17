@@ -22,7 +22,7 @@ classDiagram
         getSenses() String
         getSpells() String
         getInfo() String
-        savingThrow() int
+        savingThrow(Stat statistic) int
         attackAction() String
         gainHP(int gained) void
         loseHP(int lost) void
@@ -42,6 +42,12 @@ classDiagram
     <<Nested>> MonsterImpl
     Monster <|.. MonsterImpl
 
+    class Stat {
+
+    }
+    <<Enumeration>> Stat
+    Monster --> Stat
+    MonsterImpl --> Stat
     class HeroImpl {
 
     }
