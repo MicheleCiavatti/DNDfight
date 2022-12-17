@@ -2,9 +2,8 @@ package model.impl;
 
 import model.api.Monster;
 
-public class MonsterBuilder implements StepStr, StepDex, StepCons, StepInt, StepWis, StepCha, FinalStep {
-
-    
+/**Step builder for creating a {@link Monster} */
+public class MonsterBuilder implements StepStr, StepDex, StepCons, StepInt, StepWis, StepCha, StepHP, StepAtt, StepFinal {
 
     private String name;
     private int strength;
@@ -13,6 +12,9 @@ public class MonsterBuilder implements StepStr, StepDex, StepCons, StepInt, Step
     private int intelligence;
     private int wisdom;
     private int charisma;
+    private int hp;
+    private String attacks;
+
 
     public StepStr name(final String name) {
         this.name = name;
@@ -25,9 +27,20 @@ public class MonsterBuilder implements StepStr, StepDex, StepCons, StepInt, Step
         return null;
     }
 
+    @Override
+    public StepFinal attacks(final String attacks) {
+        this.attacks = attacks;
+        return this;
+    }
 
     @Override
-    public FinalStep charisma(int charisma) {
+    public StepAtt hp(final int hp) {
+        this.hp = hp;
+        return this;
+    }
+
+    @Override
+    public StepHP charisma(int charisma) {
         this.charisma = charisma;
         return this;
     }
@@ -37,9 +50,6 @@ public class MonsterBuilder implements StepStr, StepDex, StepCons, StepInt, Step
         this.wisdom = wisdom;
         return this;
     }
-
-
-
 
     @Override
     public StepWis intelligence(int intelligence) {
@@ -59,13 +69,11 @@ public class MonsterBuilder implements StepStr, StepDex, StepCons, StepInt, Step
         return this;
     }
 
-
     @Override
     public StepDex strength(int strength) {
         this.strength = strength;
         return this;
     }
-
 }
 
 interface StepStr {
@@ -89,9 +97,17 @@ interface StepWis {
 }
 
 interface StepCha {
-    FinalStep charisma(final int charisma);
+    StepHP charisma(final int charisma);
 }
 
-interface FinalStep {
+interface StepHP {
+    StepAtt hp(final int hp);
+}
+
+interface StepAtt {
+    StepFinal attacks(final String attacks);
+}
+
+interface StepFinal {
     Monster build();
 }
