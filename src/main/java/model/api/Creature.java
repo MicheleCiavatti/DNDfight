@@ -2,7 +2,7 @@ package model.api;
 
 /**Models any creature.
  * @see Hero
- * @see MonsterBuilder
+ * @see Monster
  */
 public interface Creature {
 
