@@ -57,10 +57,4 @@ classDiagram
     class MonsterBuilder {
 
     }
-    <<Interface>> MonsterBuilder
-
-    class MonsterBuilderImpl {
-
-    }
-    MonsterBuilder <|-- MonsterBuilderImpl
-    MonsterBuilderImpl <|.. MonsterImpl
+    MonsterBuilder --> MonsterImpl
