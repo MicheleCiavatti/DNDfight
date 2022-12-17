@@ -7,7 +7,7 @@ import model.api.Monster;
 public class MonsterBuilder implements StepAc, StepInitiative, StepPerception, StepStr, StepDex, StepCons, StepInt, StepWis, StepCha, StepHP, 
 StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
 
-    private String name;
+    private final String name;
     private int ac;
     private int initiative;
     private int passivePerception;
@@ -24,15 +24,15 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
     private String info;
 
 
-    public StepAc name(final String name) {
+    public MonsterBuilder(final String name) {
         this.name = name;
-        return this;
     }
 
     @Override
     public Monster build() {
-        /*TODO */
-        return null;
+        return new MonsterImpl(this.name, this.ac, this.initiative, this.passivePerception, this.strength, this.dexterity,
+                                this.constitution, this.intelligence, this.wisdom, this.charisma, this.hp, this.attacks, 
+                                this.senses, this.languages, this.info);
     }
 
     @Override
@@ -101,16 +101,19 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
         return this;
     }
 
-    public StepStr passivePercepion(final int passivePerception) {
+    @Override
+    public StepStr passivePerception(final int passivePerception) {
         this.passivePerception = passivePerception;
         return this;
     }
 
+    @Override
     public StepPerception initiative(final int initiative) {
         this.initiative = initiative;
         return this;
     }
 
+    @Override
     public StepInitiative ac(final int ac) {
         this.ac = ac;
         return this;
@@ -118,6 +121,44 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
 
 
     private class MonsterImpl implements Monster {
+
+        private final String name;
+        private final int ac;
+        private final int initiative;
+        private final int passivePerception;
+        private final int strength;
+        private final int dexterity;
+        private final int constitution;
+        private final int intelligence;
+        private final int wisdom;
+        private final int charisma;
+        private final int hp;
+        private int currentHp;
+        private final String attacks;
+        private final String senses;
+        private final String languages;
+        private final String info;
+        
+        public MonsterImpl(final String name, final int ac, final int initiative, final int passivePerception, final int strength,
+                            final int dexterity, final int constitution, final int intelligence, final int wisdom, final int charisma,
+                            final int hp, final String attacks, final String senses, final String languages, final String info) {
+            this.name = name;
+            this.ac = ac;
+            this.initiative = initiative;
+            this.passivePerception = passivePerception;
+            this.strength = strength;
+            this.dexterity = dexterity;
+            this.constitution = constitution;
+            this.intelligence = intelligence;
+            this.wisdom = wisdom;
+            this.charisma = charisma;
+            this.hp = hp;
+            this.currentHp = hp;
+            this.attacks = attacks;
+            this.senses = senses;
+            this.languages = languages;
+            this.info = info;
+        }
 
         @Override
         public int getInitiative() {
@@ -186,6 +227,7 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
         }
         
     }
+
 }
 
 interface StepAc {
