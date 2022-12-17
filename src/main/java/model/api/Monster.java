@@ -26,5 +26,5 @@ public interface Monster extends Creature {
     public String getInfo();
 
     /**Returns the result of a roll */
-    public int savingThrow();
+    public int savingThrow(final Stat statistic);
 }
