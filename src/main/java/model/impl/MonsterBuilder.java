@@ -1,5 +1,8 @@
 package model.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import control.api.Stat;
 import model.api.Monster;
 
@@ -18,7 +21,7 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
     private int wisdom;
     private int charisma;
     private int hp;
-    private String attacks;
+    private List<String> attacks;
     private String senses;
     private String languages;
     private String info;
@@ -54,8 +57,8 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
     }
 
     @Override
-    public StepSenses attacks(final String attacks) {
-        this.attacks = attacks;
+    public StepSenses attacks(final List<String> attacks) {
+        this.attacks = List.copyOf(attacks);
         return this;
     }
 
@@ -134,14 +137,14 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
         private final int charisma;
         private final int hp;
         private int currentHp;
-        private final String attacks;
+        private final List<String> attacks;
         private final String senses;
         private final String languages;
         private final String info;
         
         public MonsterImpl(final String name, final int ac, final int initiative, final int passivePerception, final int strength,
                             final int dexterity, final int constitution, final int intelligence, final int wisdom, final int charisma,
-                            final int hp, final String attacks, final String senses, final String languages, final String info) {
+                            final int hp, final List<String> attacks, final String senses, final String languages, final String info) {
             this.name = name;
             this.ac = ac;
             this.initiative = initiative;
@@ -154,7 +157,7 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
             this.charisma = charisma;
             this.hp = hp;
             this.currentHp = hp;
-            this.attacks = attacks;
+            this.attacks = List.copyOf(attacks);
             this.senses = senses;
             this.languages = languages;
             this.info = info;
@@ -209,12 +212,6 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
         }
 
         @Override
-        public int savingThrow(Stat statistic) {
-            // TODO Auto-generated method stub
-            return 0;
-        }
-
-        @Override
         public void gainHP(int gained) {
             // TODO Auto-generated method stub
             
@@ -224,6 +221,18 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
         public void loseHP(int lost, double resistance) {
             // TODO Auto-generated method stub
             
+        }
+
+        @Override
+        public int savingThrow(Stat statistic, Optional<Boolean> condition) {
+            // TODO Auto-generated method stub
+            return 0;
+        }
+
+        @Override
+        public List<String> attackAction(Optional<Boolean> condition) {
+            // TODO Auto-generated method stub
+            return null;
         }
         
     }
@@ -271,7 +280,7 @@ interface StepHP {
 }
 
 interface StepAtt {
-    StepSenses attacks(final String attacks);
+    StepSenses attacks(final List<String> attacks);
 }
 
 interface StepSenses {
