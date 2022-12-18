@@ -22,8 +22,8 @@ classDiagram
         getSenses() String
         getSpells() String
         getInfo() String
-        savingThrow(Stat statistic) int
-        attackAction() String
+        savingThrow(Stat statistic, Optional<Boolean> condition) int
+        attackAction(Optional<Boolean> condition) String
         gainHP(int gained) void
         loseHP(int lost) void
     }

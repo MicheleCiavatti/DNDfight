@@ -1,5 +1,8 @@
 package model.api;
 
+import java.util.List;
+import java.util.Optional;
+
 import control.api.Stat;
 
 /**Models any monster.
@@ -29,9 +32,16 @@ public interface Monster extends Creature {
 
     /**Returns the result of a roll in the specified {@link control.api.Stat}.
      * @param statistic the stat used as modifier for the saving throw
+     * @param condition the condition of the roll: empty for normal, true for advantage and false for disadvantage
      * @return the result of the saving throw
     */
-    public int savingThrow(final Stat statistic);
+    public int savingThrow(final Stat statistic, final Optional<Boolean> condition);
+
+    /**Returns a list of strings describing the attack action of the monster, with relative rolls.
+     * @param condition the condition of the roll: empty for normal, true for advantage and false for disadvantage
+     * @return a list of string describing all attacks of the monster
+     */
+    public List<String> attackAction(final Optional<Boolean> condition);
 
     /**Heals the monster by the amount specified.
      * @param gained healing of the monster
