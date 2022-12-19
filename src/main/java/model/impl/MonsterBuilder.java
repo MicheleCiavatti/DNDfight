@@ -2,6 +2,7 @@ package model.impl;
 
 import java.time.temporal.ValueRange;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import control.api.Stat;
@@ -31,6 +32,9 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
     private String info;
 
 
+    /**Constructor represents the first step of the builder.
+     * The next step is ac().
+    */
     public MonsterBuilder(final String name) {
         this.name = name;
     }
@@ -62,12 +66,16 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
 
     @Override
     public StepSenses attacks(final List<String> attacks) {
+        Objects.requireNonNull(attacks);
         this.attacks = List.copyOf(attacks);
         return this;
     }
 
     @Override
     public StepAtt hp(final int hp) {
+        if (hp <= 0) {
+            throw new IllegalArgumentException();
+        }
         this.hp = hp;
         return this;
     }
@@ -152,8 +160,8 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
         private final int intelligence;
         private final int wisdom;
         private final int charisma;
-        private final int hp;
-        private int currentHp;
+        private final int totalHP;
+        private int currentHP;
         private final List<String> attacks;
         private final String senses;
         private final String languages;
@@ -172,8 +180,8 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
             this.intelligence = intelligence;
             this.wisdom = wisdom;
             this.charisma = charisma;
-            this.hp = hp;
-            this.currentHp = hp;
+            this.totalHP = hp;
+            this.currentHP = hp;
             this.attacks = List.copyOf(attacks);
             this.senses = senses;
             this.languages = languages;
@@ -182,62 +190,55 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
 
         @Override
         public int getInitiative() {
-            // TODO Auto-generated method stub
-            return 0;
+            return this.initiative;
         }
 
         @Override
         public int getAC() {
-            // TODO Auto-generated method stub
-            return 0;
+            return this.ac;
         }
 
         @Override
         public int getPassivePerception() {
-            // TODO Auto-generated method stub
-            return 0;
+            return this.passivePerception;
         }
 
         @Override
         public String getName() {
-            // TODO Auto-generated method stub
-            return null;
+            return this.name;
         }
 
         @Override
         public int getHP() {
-            // TODO Auto-generated method stub
-            return 0;
+            return this.currentHP;
         }
 
         @Override
         public String getLanguages() {
-            // TODO Auto-generated method stub
-            return null;
+            return this.languages;
         }
 
         @Override
         public String getSenses() {
-            // TODO Auto-generated method stub
-            return null;
+            return this.senses;
         }
 
         @Override
         public String getInfo() {
-            // TODO Auto-generated method stub
-            return null;
+            return this.info;
         }
 
         @Override
         public void gainHP(int gained) {
-            // TODO Auto-generated method stub
-            
+            this.currentHP += gained;
+            if (this.currentHP > this.totalHP) {
+                this.currentHP = this.totalHP;
+            }
         }
 
         @Override
         public void loseHP(int lost, double resistance) {
-            // TODO Auto-generated method stub
-            
+            //TODO
         }
 
         @Override
