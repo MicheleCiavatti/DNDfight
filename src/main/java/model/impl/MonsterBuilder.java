@@ -1,5 +1,6 @@
 package model.impl;
 
+import java.time.temporal.ValueRange;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,9 @@ import model.api.Monster;
 /**Step builder for creating a {@link Monster} */
 public class MonsterBuilder implements StepAc, StepInitiative, StepPerception, StepStr, StepDex, StepCons, StepInt, StepWis, StepCha, StepHP, 
 StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
+
+    private static final int MIN_STAT = -5;
+    private static final int MAX_STAT = 10;
 
     private final String name;
     private int ac;
@@ -69,37 +73,43 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
     }
 
     @Override
-    public StepHP charisma(int charisma) {
+    public StepHP charisma(final int charisma) {
+        checkStat(charisma);
         this.charisma = charisma;
         return this;
     }
 
     @Override
-    public StepCha wisdom(int wisdom) {
+    public StepCha wisdom(final int wisdom) {
+        checkStat(wisdom);
         this.wisdom = wisdom;
         return this;
     }
 
     @Override
-    public StepWis intelligence(int intelligence) {
+    public StepWis intelligence(final int intelligence) {
+        checkStat(intelligence);
         this.intelligence = intelligence;
         return this;
     }
 
     @Override
-    public StepInt constitution(int constitution) {
+    public StepInt constitution(final int constitution) {
+        checkStat(constitution);
         this.constitution = constitution;
         return this;
     }
 
     @Override
-    public StepCons dexterity(int dexterity) {
+    public StepCons dexterity(final int dexterity) {
+        checkStat(dexterity);
         this.dexterity = dexterity;
         return this;
     }
 
     @Override
     public StepDex strength(final int strength) {
+        checkStat(strength);
         this.strength = strength;
         return this;
     }
@@ -121,6 +131,13 @@ StepAtt, StepSenses, StepLanguages, StepInfo, StepFinal {
         this.ac = ac;
         return this;
     }
+
+    private void checkStat(final int stat) {
+        if (!ValueRange.of(MIN_STAT, MAX_STAT).isValidIntValue(stat)) {
+            throw new IllegalArgumentException();
+        }
+    }
+
 
 
     private class MonsterImpl implements Monster {
