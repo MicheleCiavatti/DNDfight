@@ -20,10 +20,6 @@ public class Dice {
     }
 
     public static int sumRolls(final Die d, final int quantity) {
-        return rollMany(d, quantity).peek(System.out::println).collect(Collectors.summingInt(i -> i));
-    }
-
-    public static void main(String[] args) {
-        System.out.println("Sum 5 result: " + Dice.sumRolls(Die.D6, 5));
+        return rollMany(d, quantity).collect(Collectors.summingInt(i -> i));
     }
 }
