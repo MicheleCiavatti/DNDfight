@@ -58,7 +58,7 @@ public interface Monster extends Creature {
      *  public String getSpells();
      */
    
-     public enum Stats {
+     public enum Stat {
         STR,
         DEX,
         CON,
@@ -67,7 +67,7 @@ public interface Monster extends Creature {
         CHA;
      }
 
-     public enum Elements {
+     public enum Element {
         PHYSICAL,
         ACID,
         COLD,
