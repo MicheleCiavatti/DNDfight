@@ -22,8 +22,8 @@ classDiagram
         getSenses() String
         getSpells() String
         getInfo() String
-        savingThrow() int
-        attackAction() String
+        savingThrow(Stat statistic, Optional<Boolean> condition) int
+        attackAction(Optional<Boolean> condition) String
         gainHP(int gained) void
         loseHP(int lost) void
     }
@@ -42,6 +42,12 @@ classDiagram
     <<Nested>> MonsterImpl
     Monster <|.. MonsterImpl
 
+    class Stat {
+
+    }
+    <<Enumeration>> Stat
+    Monster --> Stat
+    MonsterImpl --> Stat
     class HeroImpl {
 
     }
@@ -57,10 +63,4 @@ classDiagram
     class MonsterBuilder {
 
     }
-    <<Interface>> MonsterBuilder
-
-    class MonsterBuilderImpl {
-
-    }
-    MonsterBuilder <|-- MonsterBuilderImpl
-    MonsterBuilderImpl <|.. MonsterImpl
+    MonsterBuilder --> MonsterImpl
