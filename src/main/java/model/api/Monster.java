@@ -58,4 +58,26 @@ public interface Monster extends Creature {
      *  public String getSpells();
      */
    
+     public enum Stat {
+        STR,
+        DEX,
+        CON,
+        INT,
+        WIS,
+        CHA;
+     }
+
+     public enum Element {
+        PHYSICAL,
+        ACID,
+        COLD,
+        FIRE,
+        FORCE,
+        LIGHTNING,
+        NECROTIC,
+        POISON,
+        PSYCHIC,
+        RADIANT,
+        THUNDER;
+     }
 }
