@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import control.impl.Die;
 import model.api.Monster;
 import model.api.Monster.Element;
 import model.api.Monster.Stat;
@@ -78,7 +79,7 @@ public class MonsterBuilder {
     }
 
     public Monster build() {
-        if (this.ac == 0 || this.stats.isEmpty() || this.savingThrows.isEmpty() || this.resistances.isEmpty() ||
+        if (this.ac == 0 || this.stats.isEmpty() || this.savingThrows.isEmpty() || this.resistances.isEmpty()
             || this.hpTotal == 0 || this.info.isEmpty() || this.actions.isEmpty() || this.numberOfLegendaryActions == 0 || this.legendaryActions.isEmpty()) {
                 throw new IllegalStateException();
             }
