@@ -58,16 +58,16 @@ public interface Monster extends Creature {
      *  public String getSpells();
      */
    
-     public enum Stat {
+   public enum Stat {
         STR,
         DEX,
         CON,
         INT,
         WIS,
         CHA;
-     }
+   }
 
-     public enum Element {
+   public enum Element {
         PHYSICAL,
         ACID,
         COLD,
@@ -79,5 +79,22 @@ public interface Monster extends Creature {
         PSYCHIC,
         RADIANT,
         THUNDER;
-     }
+   }
+
+   public enum Condition {
+      BLINDED,
+      CHARMED,
+      DEAFENED,
+      FRIGHTNED,
+      GRAPPLED,
+      INCAPACITATED,
+      INVISIBLE,
+      PARALYZED,
+      PETRIFIED,
+      POISONED,
+      PRONE,
+      RESTRAINED,
+      STUNNED,
+      UNCONSCIOUS;
+   }
 }

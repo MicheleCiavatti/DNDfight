@@ -1,10 +1,12 @@
 package model.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.locks.Condition;
 
 import control.impl.Die;
 import model.api.Monster;
@@ -18,6 +20,7 @@ public class MonsterBuilder {
     private final Map<Stat, Integer> stats = new HashMap<>();
     private final Map<Stat, Integer> savingThrows = new HashMap<>();
     private final Map<Element, Double> resistances = new HashMap<>();
+    private final Map<Monster.Condition, Boolean> conditionAfflicted = new HashMap<>();
     private int hpTotal = 0;
     private String info; //Comprehends movement, senses, languages, skills, special attacks
     private final List<String> actions = new ArrayList<>();
@@ -26,6 +29,11 @@ public class MonsterBuilder {
 
     public MonsterBuilder(final String name) {
         this.name = name;
+    }
+
+    public MonsterBuilder setConditionImmunities(final List<Monster.Condition> condImmunities) {
+        Arrays.stream(Monster.Condition.values()).filter(cond -> !condImmunities.contains(cond)).forEach(cond -> conditionAfflicted.put(cond, false));
+        return this;
     }
 
     public MonsterBuilder ac(final int ac) {
@@ -79,11 +87,12 @@ public class MonsterBuilder {
     }
 
     public Monster build() {
-        if (this.ac == 0 || this.stats.isEmpty() || this.savingThrows.isEmpty() || this.resistances.isEmpty()
+        if (this.ac == 0 || this.stats.isEmpty() || this.savingThrows.isEmpty() || this.resistances.isEmpty() || conditionAfflicted.isEmpty()
             || this.hpTotal == 0 || this.info.isEmpty() || this.actions.isEmpty() || this.numberOfLegendaryActions == 0 || this.legendaryActions.isEmpty()) {
                 throw new IllegalStateException();
             }
-        return new MonsterImpl(name, ac, stats, savingThrows, resistances, hpTotal, info, actions, numberOfLegendaryActions, legendaryActions, initiative);
+        return new MonsterImpl(name, ac, stats, savingThrows, resistances, hpTotal, info, actions, 
+            numberOfLegendaryActions, legendaryActions, initiative, conditionAfflicted);
     }
 
     private class MonsterImpl implements Monster {
@@ -94,6 +103,7 @@ public class MonsterBuilder {
         private Map<Stat, Integer> stats;
         private Map<Stat, Integer> savingThrows;
         private final Map<Element, Double> resistances;
+        private final Map<Monster.Condition, Boolean> conditionAfflicted;
         private final int hpTotal;
         private int hpCurrent;
         private final String info; //Comprehends movement, senses, languages, skills, special attacks
@@ -103,7 +113,8 @@ public class MonsterBuilder {
 
         private MonsterImpl(final String name, final int ac, final Map<Stat, Integer> stats, final Map<Stat, Integer> savingThrows, 
                         final Map<Element, Double> resistances, final int hpTotal, final String info, final List<String> actions,
-                        final int numberOfLegendaryActions, final Map<String, Integer> legendaryActions, final int initiative) {
+                        final int numberOfLegendaryActions, final Map<String, Integer> legendaryActions, final int initiative,
+                        final Map<Monster.Condition, Boolean> conditionAfflicted) {
             this.name = name;
             this.ac = ac;
             this.stats = stats;
@@ -118,6 +129,7 @@ public class MonsterBuilder {
             this.numberOfLegendaryActions = numberOfLegendaryActions;
             this.legendaryActions = Map.copyOf(legendaryActions);
             this.initiative = initiative;
+            this.conditionAfflicted = Map.copyOf(conditionAfflicted);
         }
 
         @Override
